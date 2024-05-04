@@ -22,8 +22,6 @@ function M.config()
     -- char = icons.ui.LineLeft,
     char = icons.ui.LineMiddle,
     -- context_char = icons.ui.LineLeft,
-    filetype_exclude = { "help", "terminal", "dashboard", "lspinfo" },
-    buftype_exclude = { "terminal", "dashboard", "nofile", "quickfix" },
     context_char = icons.ui.LineMiddle,
     show_trailing_blankline_indent = false,
     show_first_indent_level = true,

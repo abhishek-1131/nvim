@@ -23,6 +23,7 @@ function M.config()
     ["<leader>fR"] = { "<cmd>Telescope registers<cr>", "Registers" },
     ["<leader>fk"] = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     ["<leader>fC"] = { "<cmd>Telescope commands<cr>", "Commands" },
+    ["<leader>."] = { "<cmd>Telescope find_files cwd=~/.config/nvim/<CR><cr>", "Nvim Config" },
 
     ["<leader>go"] = { "<cmd>Telescope git_status<cr>", "Open changed file" },
     ["<leader>gb"] = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
@@ -89,11 +90,11 @@ function M.config()
 
       mappings = {
         i = {
-          ["<C-n>"] = actions.cycle_history_next,
-          ["<C-p>"] = actions.cycle_history_prev,
+          ["<C-j>"] = actions.cycle_history_next,
+          ["<C-k>"] = actions.cycle_history_prev,
 
-          ["<C-j>"] = actions.move_selection_next,
-          ["<C-k>"] = actions.move_selection_previous,
+          ["<C-n>"] = actions.move_selection_next,
+          ["<C-p>"] = actions.move_selection_previous,
         },
         n = {
           ["<esc>"] = actions.close,

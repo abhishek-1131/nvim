@@ -74,7 +74,7 @@ function M.config()
 		"lua_ls",
 		"cssls",
 		"html",
-		-- "tsserver",
+		"tsserver",
 		"astro",
 		"pyright",
 		"bashls",
@@ -85,7 +85,7 @@ function M.config()
 		"tailwindcss",
 		"eslint",
 		"rust_analyzer",
-		-- "prismals",
+		"prismals",
 	}
 
 	local default_diagnostic_config = {
