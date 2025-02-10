@@ -3,28 +3,9 @@ local M = {
 }
 
 function M.config()
-  local mappings = {
-    q = { "<cmd>confirm q<CR>", "Quit" },
-    h = { "<cmd>nohlsearch<CR>", "NOHL" },
-    [";"] = { "<cmd>tabnew | terminal<CR>", "Term" },
-    v = { "<cmd>vsplit<CR>", "Split" },
-    b = { name = "Buffers" },
-    d = { name = "Debug" },
-    f = { name = "Find" },
-    g = { name = "Git" },
-    l = { name = "LSP" },
-    p = { name = "Plugins" },
-    t = { name = "Test" },
-    a = {
-      name = "Tab",
-      n = { "<cmd>$tabnew<cr>", "New Empty Tab" },
-      N = { "<cmd>tabnew %<cr>", "New Tab" },
-      o = { "<cmd>tabonly<cr>", "Only" },
-      h = { "<cmd>-tabmove<cr>", "Move Left" },
-      l = { "<cmd>+tabmove<cr>", "Move Right" },
-    },
-    T = { name = "Treesitter" },
-  }
+  -- Set a shorter timeout for which-key to appear
+  vim.o.timeout = true
+  vim.o.timeoutlen = 300
 
   local which_key = require "which-key"
   which_key.setup {
@@ -45,26 +26,70 @@ function M.config()
         g = false,
       },
     },
-    window = {
-      border = "rounded",
-      position = "bottom",
-      padding = { 2, 2, 2, 2 },
+    win = {
+      no_overlap = true,  -- prevent overlap with cursor
+      width = { min = 20, max = 50 }, 
+      height = { min = 4, max = 15 }, 
+      padding = { 1, 2 },  -- [top/bottom, right/left] padding
+      title = true,  -- show title
+      title_pos = "center",  -- center the title
+      zindex = 1000,  -- keep it on top
+      bo = {},  -- buffer options
+      wo = {
+        winblend = 0,  -- fully opaque by default
+        conceallevel = 0,  -- show everything
+        wrap = false,  -- no text wrapping
+      },
     },
-    ignore_missing = true,
-    show_help = false,
-    show_keys = false,
+    -- filter = true,  -- Enable this to hide mappings for which you didn't specify a label
+    -- triggers_nowait = {
+    --   -- marks
+    --   "`",
+    --   "'",
+    --   "g`",
+    --   "g'",
+    --   -- registers
+    --   '"',
+    --   "<c-r>",
+    --   -- spelling
+    --   "z=",
+    -- },
+    triggers = {"<leader>"},  -- or specify a list of triggers, including <leader>
+    filter = function(client) return true end,
+    show_help = true,
+    show_keys = true,
     disable = {
       buftypes = {},
       filetypes = { "TelescopePrompt" },
     },
   }
 
-  local opts = {
-    mode = "n", -- NORMAL mode
-    prefix = "<leader>",
-  }
-
-  which_key.register(mappings, opts)
+  -- Add mappings using the new v3 spec format
+  which_key.add({
+    { "<leader>q", "<cmd>confirm q<CR>", desc = "Quit" },
+    { "<leader>h", "<cmd>nohlsearch<CR>", desc = "NOHL" },
+    { "<leader>;", "<cmd>tabnew | terminal<CR>", desc = "Term" },
+    { "<leader>v", "<cmd>vsplit<CR>", desc = "Split" },
+    { "<leader>b", group = "Buffers" },
+    { "<leader>d", group = "Debug" },
+    { "<leader>f", group = "Find" },
+    { "<leader>g", group = "Git" },
+    { "<leader>l", group = "LSP" },
+    { "<leader>p", group = "Plugins" },
+    { "<leader>t", group = "Test" },
+    { "<leader>T", group = "Treesitter" },
+    {
+      "<leader>a",
+      group = "Tab",
+      {
+        { "<leader>an", "<cmd>$tabnew<cr>", desc = "New Empty Tab" },
+        { "<leader>aN", "<cmd>tabnew %<cr>", desc = "New Tab" },
+        { "<leader>ao", "<cmd>tabonly<cr>", desc = "Only" },
+        { "<leader>ah", "<cmd>-tabmove<cr>", desc = "Move Left" },
+        { "<leader>al", "<cmd>+tabmove<cr>", desc = "Move Right" },
+      }
+    },
+  })
 end
 
 return M

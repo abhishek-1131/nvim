@@ -6,9 +6,9 @@ local M = {
 function M.config()
 
   local wk = require "which-key"
-  wk.register {
-    ["<leader>e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
-  }
+  wk.add({
+    { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Explorer" },
+  })
 
   local function my_on_attach(bufnr)
     local api = require "nvim-tree.api"
@@ -34,7 +34,7 @@ function M.config()
     sync_root_with_cwd = true,
     view = {
       number = false,
-      width=35,
+      width=45,
     },
     renderer = {
       add_trailing = false,
